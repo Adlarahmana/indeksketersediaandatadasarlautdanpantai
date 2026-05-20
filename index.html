@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Indeks Ketersediaan Data Dasar Rupabumi Wilayah Laut dan Pantai</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@7.4.0/ol.css">
+
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    #header {
+      height: 56px;
+      background: linear-gradient(90deg, #0b3c5d, #1e6fa8);
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    #app {
+      display: flex;
+      height: calc(100% - 56px);
+    }
+
+    #sidebar {
+      width: 280px;
+      background: #0b3c5d;
+      color: white;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .menu-title {
+      cursor: pointer;
+      padding: 10px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+
+    .submenu {
+      display: none;
+      margin-left: 10px;
+      font-size: 13px;
+    }
+
+    #map {
+      flex: 1;
+    }
+
+    #popup {
+      position: absolute;
+      background: white;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      min-width: 260px;
+      font-size: 12px;
+      z-index: 999;
+      bottom: 12px;
+      left: 12px;
+      display: none;
+    }
+
+    #popup-closer {
+      float: right;
+      cursor: pointer;
+      color: red;
+      font-weight: bold;
+    }
+
+    #popup-selector {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .popup-btn {
+      padding: 4px 8px;
+      background: #e0e0e0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    .popup-btn.active {
+      background: #1e6fa8;
+      color: white;
+    }
+
+    .download-link {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 10px;
+      background: #1e6fa8;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
+    .download-link:hover {
+      background: #155a86;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="header">
+    Indeks Ketersediaan Data Dasar Rupabumi Wilayah Laut dan Pantai
+  </div>
+
+  <div id="app">
+    <div id="sidebar">
+
+      <div class="menu-title" onclick="toggleMenu('lpi')">Data LPI</div>
+      <div class="submenu" id="lpi">
+        <label>
+          <input type="checkbox" onchange="toggleLPI(10, this.checked)">
+          1 : 10K
+        </label><br>
+
+        <label>
+          <input type="checkbox" onchange="toggleLPI(25, this.checked)">
+          1 : 25K
+        </label><br>
+
+        <label>
+          <input type="checkbox" onchange="toggleLPI(50, this.checked)">
+          1 : 50K
+        </label><br>
+
+        <label>
+          <input type="checkbox" onchange="toggleLPI(250, this.checked)">
+          1 : 250K
+        </label>
+      </div>
+
+      <div class="menu-title" onclick="toggleMenu('lln')">Data LLN</div>
+      <div class="submenu" id="lln">
+        <label>
+          <input type="checkbox" onchange="toggleLLN(50, this.checked)">
+          1 : 50K
+        </label><br>
+
+        <label>
+          <input type="checkbox" onchange="toggleLLN(250, this.checked)">
+          1 : 250K
+        </label><br>
+
+        <label>
+          <input type="checkbox" onchange="toggleLLN(500, this.checked)">
+          1 : 500K
+        </label>
+      </div>
+
+      <div class="menu-title" onclick="toggleMenu('batimetri')">Batimetri</div>
+      <div class="submenu" id="batimetri">
+        <label>
+          <input type="checkbox" onchange="toggleBatimetri(this)">
+          Data Batimetri Tahun 2021–2025
+        </label>
+      </div>
+
+      <!-- ===== LKI ===== -->
+      <div class="menu-title" onclick="toggleMenu('lki')">LKI</div>
+      <div class="submenu" id="lki">
+        <label>
+          <input type="checkbox" onchange="toggleLKI(this.checked)">
+          Data LKI Tahun 2019 & 2022
+        </label>
+      </div>
+
+      <!-- ===== GARPAN ===== -->
+      <div class="menu-title" onclick="toggleMenu('garpan')">Garpan</div>
+      <div class="submenu" id="garpan">
+        <label>
+          <input type="checkbox" onchange="toggleGarpan(this.checked)">
+          Data Garis Pantai Skala Besar
+        </label>
+      </div>
+
+    </div>
+
+    <div id="map"></div>
+  </div>
+
+  <div id="popup">
+    <a href="#" id="popup-closer">✖</a>
+
+    <div id="popup-selector"></div>
+
+    <div id="popup-content"></div>
+
+    <a id="download-data" class="download-link" href="#" target="_blank">
+      Download Data
+    </a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/ol@7.4.0/dist/ol.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
