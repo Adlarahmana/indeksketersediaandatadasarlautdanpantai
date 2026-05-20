@@ -129,7 +129,7 @@ const llnLayers = {
 ================================ */
 const batimetriLayers = [
   createVectorLayer(
-    'Data/GeoJson/Batimetri_2021.geojson',
+    'GeoJson/Batimetri_2021.geojson',
     '#1b9e77',
     'rgba(27, 158, 119, 0.25)',
     'Batimetri 2021',
